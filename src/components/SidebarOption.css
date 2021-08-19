@@ -20,3 +20,7 @@
   transition: color 100ms ease-out;
   border-radius: 30px;
 }
+
+.sidebarOption--active {
+  color: var(--twitter-color);
+}
