@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .sidebarOption > .MuiSvgIcon-root {
@@ -23,4 +24,5 @@
 
 .sidebarOption--active {
   color: var(--twitter-color);
+  text-decoration: none;
 }

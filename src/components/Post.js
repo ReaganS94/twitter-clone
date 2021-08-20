@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 import {
   FavoriteBorder,
@@ -9,7 +11,22 @@ import {
 
 import "./Post.css";
 
-function Post({ userName, userId, date, message, title, avatar, verified }) {
+function Post({
+  userName,
+  userId,
+  date,
+  message,
+  title,
+  avatar,
+  verified,
+  messageId,
+}) {
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleClass = () => {
+    setIsActive(!isActive);
+  };
+
   return (
     <div className="post">
       <div className="post__avatar">
@@ -22,7 +39,7 @@ function Post({ userName, userId, date, message, title, avatar, verified }) {
               {userName}{" "}
               <span className="post__headerSpecial">
                 {verified && <VerifiedUser className="post__badge" />} @
-                {userName}
+                <Link to={`/user/${userId}/messages`}>{userName}</Link>
               </span>
             </h3>
           </div>
@@ -32,9 +49,15 @@ function Post({ userName, userId, date, message, title, avatar, verified }) {
         </div>
         {/* <img src="https://i.pravatar.cc/300" alt="" /> */}
         <div className="post__footer">
-          <ChatBubbleOutline fontSize="small" />
+          <Link to={`/message/${messageId}`}>
+            <ChatBubbleOutline fontSize="small" />
+          </Link>{" "}
           <Repeat fontSize="small" />
-          <FavoriteBorder fontSize="small" />
+          <FavoriteBorder
+            onClick={toggleClass}
+            className={isActive ? "fav another" : "another"}
+            fontSize="small"
+          />
           <Publish fontSize="small" />
         </div>
       </div>

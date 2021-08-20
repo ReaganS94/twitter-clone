@@ -10,6 +10,7 @@ export const searchUrl = "https://mini-tw.herokuapp.com/search/?q=";
 
 function Feed({ searchQuery }) {
   const [posts, setPosts] = useState([]);
+  const [test, setTest] = useState();
   const [loading, setLoading] = useState(true);
 
   const fetchMessage = useCallback(() => {
@@ -35,25 +36,27 @@ function Feed({ searchQuery }) {
 
   useEffect(() => {
     fetchMessage();
-  }, [fetchMessage]);
+  }, [fetchMessage, test]);
 
   if (loading) return "Loading...";
 
   return (
     <div className="feed">
       <div className="feed__header">
-        <h2>Home</h2>
+        <h2 onClick={(e) => setTest("test test")}>Home</h2>
       </div>
 
       <TweetBox updateTweets={fetchMessage} />
       {posts.items.map(
-        ({ userName, userId, date, message, title, avatar, verified }) => (
+        ({ userName, userId, date, message, title, avatar, verified, id }) => (
           <Post
             userName={userName}
+            userId={userId}
             message={message}
             avatar={avatar}
             title={title}
             date={date}
+            messageId={id}
             verified
           />
         )

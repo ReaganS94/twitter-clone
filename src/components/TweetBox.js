@@ -11,9 +11,9 @@ function TweetBox({ updateTweets }) {
   const sendTweet = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post(baseUrl, {
+    await axios.post(baseUrl, {
       message: message,
-      userId: 1,
+      userId: 15,
       title: "sup",
       date: new Date(Date.now()),
     });
