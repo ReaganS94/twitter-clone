@@ -15,10 +15,18 @@
 .widgets__input > input {
   border: none;
   background-color: var(--twitter-background);
+  width: 100%;
 }
 
-.widgets__searchIcon {
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.widgets__searchIcon,
+.widgets__deleteIcon {
   color: gray;
+  cursor: pointer;
 }
 
 .widgets__widgetContainer {

@@ -1,29 +1,26 @@
-import { useState } from "react";
-
 import SearchIcon from "@material-ui/icons/Search";
-import {
-  TwitterTimelineEmbed,
-  TwitterShareButton,
-  TwitterTweetEmbed,
-} from "react-twitter-embed";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 import "./Widgets.css";
 
-function Widgets({ setSearchQuery }) {
-  const [input, setInput] = useState("");
-
+function Widgets({ setSearchQuery, input, setInput, reset }) {
   return (
     <div className="widgets">
       <div className="widgets__input">
         <SearchIcon
-          onClick={() => setSearchQuery(input)}
+          onClick={() => {
+            setSearchQuery(input);
+            //setInput("");
+          }}
           className="widgets__searchIcon"
         />
         <input
+          value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search Twitter"
           type="text"
         />
+        <HighlightOffIcon className="widgets__deleteIcon" onClick={reset} />
       </div>
       <div className="widgets__widgetContainer">
         <h2>What's happening</h2>
@@ -33,16 +30,6 @@ function Widgets({ setSearchQuery }) {
           <br /> g<br />o<br />e<br />s<br />
           <br /> h<br />e<br />r<br />e
         </p>
-        <TwitterTweetEmbed tweetId={"933354946111705097"} />
-        <TwitterTimelineEmbed
-          sourceType="profile"
-          screenName="saurabhnemade"
-          options={{ height: 400 }}
-        />
-        <TwitterShareButton
-          url={"https://facebook.com/saurabhnemade"}
-          options={{ text: "#reactjs is awesome", via: "saurabhnemade" }}
-        />
       </div>
     </div>
   );
