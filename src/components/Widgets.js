@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import SearchIcon from "@material-ui/icons/Search";
 import {
   TwitterTimelineEmbed,
@@ -7,12 +9,21 @@ import {
 
 import "./Widgets.css";
 
-function Widgets() {
+function Widgets({ setSearchQuery }) {
+  const [input, setInput] = useState("");
+
   return (
     <div className="widgets">
       <div className="widgets__input">
-        <SearchIcon className="widgets__searchIcon" />
-        <input placeholder="Search Twitter" type="text" />
+        <SearchIcon
+          onClick={() => setSearchQuery(input)}
+          className="widgets__searchIcon"
+        />
+        <input
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Search Twitter"
+          type="text"
+        />
       </div>
       <div className="widgets__widgetContainer">
         <h2>What's happening</h2>

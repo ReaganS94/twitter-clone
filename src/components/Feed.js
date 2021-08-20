@@ -1,22 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import TweetBox from "./TweetBox";
 import Post from "./Post";
 
 import "./Feed.css";
 
-const baseUrl = "https://mini-tw.herokuapp.com/messages";
+export const baseUrl = "https://mini-tw.herokuapp.com/messages";
+export const searchUrl = "https://mini-tw.herokuapp.com/search/?q=";
 
-function Feed() {
+function Feed({ searchQuery }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios.get(baseUrl).then((response) => {
-      setPosts(response.data);
-      setLoading(false);
-    });
+  const fetchMessage = useCallback(() => {
+    const getMessage = async () => {
+      axios.get(baseUrl).then((response) => {
+        setPosts(response.data);
+        setLoading(false);
+      });
+    };
+    getMessage();
   }, []);
+
+  useEffect(() => {
+    console.log(searchQuery);
+    const getMessage = async () => {
+      axios.get(`${searchUrl}${searchQuery}`).then((response) => {
+        setPosts(response.data);
+        setLoading(false);
+      });
+    };
+    getMessage();
+  }, [searchQuery]);
+
+  useEffect(() => {
+    fetchMessage();
+  }, [fetchMessage]);
 
   if (loading) return "Loading...";
 
@@ -26,7 +45,7 @@ function Feed() {
         <h2>Home</h2>
       </div>
 
-      <TweetBox />
+      <TweetBox updateTweets={fetchMessage} />
       {posts.items.map(
         ({ userName, userId, date, message, title, avatar, verified }) => (
           <Post
